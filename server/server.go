@@ -4,7 +4,6 @@ import (
 	"log"
 
 	"github.com/d1y/yoxi/config"
-	"github.com/d1y/yoxi/server/handlers/api"
 	"github.com/gofiber/fiber"
 	"github.com/gofiber/fiber/middleware"
 	"github.com/pkg/errors"
@@ -32,9 +31,8 @@ func CreateServer(port int) {
 		c.Send("ok")
 	})
 
-	v1 := app.Group("/api")
-
-	v1.Get("/play", api.Play)
+	app.Static("/", config.WebDistPath)
+	app.Static("/results", config.WebAssetsPath)
 
 	app.Use(middleware.Logger())
 
